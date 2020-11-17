@@ -12,8 +12,12 @@ export default class Token {
 
 	shuffle() {
 		if (this.doesntNeedToBeShuffled()) return;
+
 		const { exempted, core } = this.disassembler();
-		const shuffledCore = this.shuffleCore(core);
+		let shuffledCore = core;
+		while (shuffledCore === core) {
+			shuffledCore = this.shuffleCore(core);
+		}
 		this.shuffled = this.reassembler(exempted, shuffledCore);
 	}
 
