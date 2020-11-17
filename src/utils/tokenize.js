@@ -21,6 +21,7 @@ export default function tokenize(input) {
 		whiteSpaceMet = 0;
 		leftSpecials = '';
 		rightSpecials = '';
+		word = '';
 	}
 
 	function isSpecial(char) {
@@ -59,7 +60,10 @@ export default function tokenize(input) {
 	let tokens = [];
 
 	let word = '';
+
+	// applyed only on the first token
 	let preWhitespace = 0;
+
 	let whiteSpaceMet = 0;
 	let leftSpecials = '';
 	let rightSpecials = '';
@@ -75,7 +79,12 @@ export default function tokenize(input) {
 			}
 		} else if (isSpecial(char)) {
 			if (word.length > 0) {
-				rightSpecials += char;
+				if (whiteSpaceMet > 0) {
+					addToken();
+					leftSpecials = char;
+				} else {
+					rightSpecials += char;
+				}
 			} else {
 				leftSpecials += char;
 			}
