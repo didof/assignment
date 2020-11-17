@@ -63,4 +63,13 @@ describe('verifying the creation of more than one tokens', () => {
 
 		expect(tokens).toStrictEqual([t1, t2]);
 	});
+
+	test('should create an array that contains two separate tokens, assigning specials to the right owner and mantaining preWhitespace on first token', () => {
+		const tokens = tokenize('   one! ?two%');
+		const t1 = new Token('one', new Specials('', '!', 1));
+		t1.specials.pre = 3;
+		const t2 = new Token('two', new Specials('?', '%', 0));
+
+		expect(tokens).toStrictEqual([t1, t2]);
+	});
 });

@@ -10,7 +10,7 @@ export default function tokenize(input) {
 			word,
 			new Specials(leftSpecials, rightSpecials, whiteSpaceMet)
 		);
-		if (preWhitespace > 0) {
+		if (isFirstWord && preWhitespace > 0) {
 			token.specials.pre = preWhitespace;
 		}
 		tokens.push(token);
@@ -22,6 +22,9 @@ export default function tokenize(input) {
 		leftSpecials = '';
 		rightSpecials = '';
 		word = '';
+		
+		isFirstWord = false;
+		preWhitespace = 0;
 	}
 
 	function isSpecial(char) {
@@ -60,6 +63,7 @@ export default function tokenize(input) {
 	let tokens = [];
 
 	let word = '';
+	let isFirstWord = true;
 
 	// applyed only on the first token
 	let preWhitespace = 0;
@@ -75,7 +79,9 @@ export default function tokenize(input) {
 			if (word.length !== 0) {
 				whiteSpaceMet++;
 			} else {
-				preWhitespace++;
+				if (isFirstWord) {
+					preWhitespace++;
+				}
 			}
 		} else if (isSpecial(char)) {
 			if (word.length > 0) {
