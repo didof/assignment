@@ -42,6 +42,17 @@ const H6 = styled.h6`
 		props.b ? '1px solid rgba(0, 0, 0, 0.1)' : 'none'};
 `;
 
+/*
+
+Using this component you get the same HTMLDOMelement, however in development it
+is easier to add styles as you like.
+In this case b represents a border-bottom. When using this component it is
+sufficient to insert <Header size={1} b>text</Header>
+												  ^ only that
+Obviously the same principle is applicable to any other styling and not only;
+by doing this I can also add events.
+*/
+
 const Header = ({ children, size, b }) => {
 	if (size < 0 || size > 6) throw new Error(`size ${size} is not supported`);
 	switch (size) {
