@@ -36,9 +36,13 @@ const App = () => {
 		setText((prevText) => defaultValue);
 	}
 
+	/*
+	is prevented from adding newline and adding tabs as this would compromise the
+	tokenization function (tokenize.js).
+	*/
 	function changeTextHandler(e) {
 		const val = e.target.value;
-		if (val[val.length - 1] === '\n') return;
+		if (val[val.length - 1] === '\n' || val[val.length - 1] === '\t') return;
 		setText((prevText) => val);
 	}
 
