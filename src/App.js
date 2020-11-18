@@ -27,9 +27,16 @@ const Skin = styled.div`
 const defaultValue = '';
 
 const App = () => {
+	// text is the one insered by the user
 	const [text, setText] = useState(defaultValue);
+
+	// encodedOutput is the result of new Encoder(text).encode() -> .getOutput()
 	const [encodedOutput, setEncodedOutput] = useState('');
+
+	// list is the result of .retrieveOriginalFromShuffled();
 	const [list, setList] = useState([]);
+
+	// decdedOutput is the result of decoder.decode() -> .getOutput();
 	const [decodedOutput, setDecodedOutput] = useState('');
 
 	function clearTextHandler() {
@@ -46,24 +53,45 @@ const App = () => {
 		setText((prevText) => val);
 	}
 
+	/*
+	In the primary action, associated with the click on the "encode" button,
+	the instantiation of an Encoder is associated.
+	*/
 	function primaryActionHandler() {
+		// As explained in detail in encoder.js, the text provided by the user has
+		// already been tokenized at this stage.
 		const encoder = new Encoder(text);
+
+		// Then then I imposed to do the token encoding.
 		encoder.encode();
 
+		// Then the tokens, some of which are possibly encoded, are recomposed into a string
 		const encoded = encoder.getOutput();
 		setEncodedOutput((prevOutput) => encoded);
 
+		// A list containing only words that have actually been encoded is returned
 		const list = encoder.retrieveOriginalFromShuffled();
 		setList((prevList) => list);
 	}
 
+	/*
+	In the secondary action, associated with the click on the "decode" button,
+	an instantiation is associated which proceeds to verify if the presumed encoded
+	string is truly considered encoded.
+	*/
 	function secondaryActionHandler() {
 		const decoder = Decoder.withCheck(encodedOutput, list);
+
+		//If not, an error is returned to the user.
 		if (!decoder.isValid) {
 			alert('Sorry, the test that you submitted seems to be not encoded');
 			return;
 		}
+
+		// Otherwise it is called the decode method, explained in detail in decoder.js
 		decoder.decode();
+
+		// Thus, the result is retrieved and showed to the user
 		const decoded = decoder.getOutput();
 		setDecodedOutput((prevDecoded) => decoded);
 	}
