@@ -7,7 +7,7 @@ tokenization operation in the "value" property.
 
 [1]
 Basically the tokenize function reads the string from the first character to
-the last, creating a new Token object for each word encountered.
+the last, creating a new Token object for each word encountered. 
 Each token, in addition to exposing the word (to be clear, only letters and
 numbers), exhibits several other properties, including "specials".
 In this property the tokenizer saves special characters, noting whether they 
@@ -17,6 +17,7 @@ In this way you can make any changes to the word itself, undisturbed by special
 characters. However, once the desired operations are completed, it is easy to
 read the tokens and recompose the encoded string keeping the position of the special
 characters unchanged (as requested);
+(see tokenize.js for more)
 
 [2]
 Thus, at the time of instantiation, the encoder has a token list.
@@ -67,13 +68,15 @@ export default class Encoder {
 		this.value = tokenize(string); // [1]
 	}
 
-	encode() { // [2]
+	encode() {
+		// [2]
 		this.value.forEach((token) => {
 			token.shuffle(); // [3]
 		});
 	}
 
-	getOutput() { // [4]
+	getOutput() {
+		// [4]
 		let output = '';
 		this.value.forEach((token) => {
 			output += token.preWhiteSpaces; // [4.A]
@@ -85,7 +88,8 @@ export default class Encoder {
 		return output;
 	}
 
-	retrieveOriginalFromShuffled() { // [5]
+	retrieveOriginalFromShuffled() {
+		// [5]
 		const listWithDuplicate = this.value
 			.filter((token) => {
 				return 'shuffled' in token;
