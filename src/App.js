@@ -53,8 +53,8 @@ const App = () => {
 
 	function secondaryActionHandler() {
 		const decoder = Decoder.withCheck(encodedOutput, list);
-		if (decoder.isNotValid) {
-			console.error('is not valid');
+		if (!decoder.isValid) {
+			alert('Sorry, the test that you submitted seems to be not encoded');
 			return;
 		}
 		decoder.decode();

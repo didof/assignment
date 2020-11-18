@@ -132,6 +132,11 @@ export default class Decoder {
 		return false;
 	}
 
+	/*
+	all words that do not begin with the same character as the token.value under
+	examination are first filtered out. On this possibly reduced array, a second
+	skimming is applied but checking the last character.
+	*/
 	refineReferencesByExcepts(input) {
 		return this.originalList
 			.filter((word) => {
@@ -142,12 +147,27 @@ export default class Decoder {
 			});
 	}
 
+	/*
+	By comparing the lengths of token.value and each reference, it is possible
+	to consider only the latter with the same length.
+	*/
 	refineReferenceByLength(input, referenceList) {
 		return referenceList.filter((r) => {
 			return r.length === input.length;
 		});
 	}
 
+	/*
+	It is possible that the previous refining methods did not lead to a unique
+	result. Think of a list that presents ['aldo', 'anto']. They are both words
+	with length 4, with identical characters at their respective ends.
+	Therefore I randomly select a character in the token.value core.
+	I therefore filter the references using as a test an iterative reading of
+	the alleged reference; The test result is positive only if the
+	character randomly extracted from the token is found in the reference.
+	Returning to the example above, if the token were 'adlo', the method would
+	extract either 'd' or 'l'. In any case, it would exclude 'anto' from the list.
+	*/
 	refineReferenceByCharSearch(input, referenceList) {
 		let coreIndex = getRandomIntInclusive(1, input.length - 2);
 		let randomCoreChar = input[coreIndex];
