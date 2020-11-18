@@ -53,7 +53,7 @@ This is a long looong test sentence,
 with some big (biiiiig) words!
 ```
 
-## Definition of done
+### Definition of done
 
 - The encoder implementation is necessary to us in order to consider the task done
 - The decoder implementation is a plus
