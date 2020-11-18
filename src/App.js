@@ -24,12 +24,12 @@ const Skin = styled.div`
 	aling-items: center;
 `;
 
-const App = () => {
-	const defaultValue = '';
-	const [text, setText] = useState(defaultValue);
-	const [output, setOutput] = useState('');
-	const [list, setList] = useState([]);
+const defaultValue = '';
 
+const App = () => {
+	const [text, setText] = useState(defaultValue);
+	const [encodedOutput, setEncodedOutput] = useState('');
+	const [list, setList] = useState([]);
 	const [decodedOutput, setDecodedOutput] = useState('');
 
 	function clearTextHandler() {
@@ -45,14 +45,14 @@ const App = () => {
 		encoder.encode();
 
 		const encoded = encoder.getOutput();
-		setOutput((prevOutput) => encoded);
+		setEncodedOutput((prevOutput) => encoded);
 
 		const list = encoder.retrieveOriginalFromShuffled();
 		setList((prevList) => list);
 	}
 
 	function secondaryActionHandler() {
-		const decoder = Decoder.withCheck(output, list);
+		const decoder = Decoder.withCheck(encodedOutput, list);
 		if (decoder.isNotValid) {
 			console.error('is not valid');
 			return;
@@ -101,7 +101,7 @@ const App = () => {
 								Output
 							</Header>
 							<Header size={4}>Encoded text</Header>
-							<TextAreaReadOnly value={output} />
+							<TextAreaReadOnly value={encodedOutput} />
 
 							<Header size={3}>Output</Header>
 							<Header size={4}>Dencoded text</Header>
