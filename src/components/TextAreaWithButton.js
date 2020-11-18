@@ -1,3 +1,7 @@
+import { TextArea } from '../styled-components/TextAreas';
+import { Column, Row, Spacer } from '../styled-components/Aligners';
+import { Button } from '../styled-components/Buttons';
+
 const TextAreaWithButton = ({
 	rows = 5,
 	btnLabel = 'do',
@@ -7,15 +11,22 @@ const TextAreaWithButton = ({
 	primaryAction,
 }) => {
 	return (
-		<div>
-			<textarea
+		<Column spaceBetween>
+			<TextArea
 				rows={rows}
 				value={value}
 				onChange={(e) => change(e.target.value)}
-			></textarea>
-			<button onClick={clear}>clear</button>
-			<button onClick={primaryAction}>{btnLabel}</button>
-		</div>
+			/>
+			<Spacer />
+			<Row spaceEvenly>
+				<Button secondary onClick={clear}>
+					clear
+				</Button>
+				<Button primary onClick={primaryAction}>
+					{btnLabel}
+				</Button>
+			</Row>
+		</Column>
 	);
 };
 

@@ -8,8 +8,20 @@ import List from './components/List';
 import TextAreaWithButton from './components/TextAreaWithButton';
 import TextAreaReadOnly from './components/TextAreaReadOnly';
 
+import { Column, Row, Spacer } from './styled-components/Aligners';
+import { Card } from './styled-components/Cards';
+import { Button } from './styled-components/Buttons';
+
 const Skin = styled.div`
-	font-family: sans-serif;
+	font-family: verdana, sans-serif;
+	background-color: rgba(0, 0, 0, 0.1);
+
+	height: 100vh;
+	width: 100vw;
+
+	display: flex;
+	justify-content: space-around;
+	aling-items: center;
 `;
 
 const App = () => {
@@ -52,36 +64,61 @@ const App = () => {
 
 	return (
 		<Skin>
-			<Header>WeirdText</Header>
-			<Header size={2}>Encoder</Header>
-			<Header size={3}>Input</Header>
-			<Header size={4}>Text to decode: {text}</Header>
-			<TextAreaWithButton
-				btnLabel='encode'
-				value={text}
-				change={changeTextHandler}
-				clear={clearTextHandler}
-				primaryAction={primaryActionHandler}
-			/>
+			<Column spaceEvenly>
+				<Header size={1} b>
+					WeirdText
+				</Header>
+				<Row spaceAround>
+					<Spacer />
+					<Card>
+						<Column spaceEvenly>
+							<Header size={2} b>
+								Encoder
+							</Header>
+							<Header size={3}>Input</Header>
+							<Header size={6}>Text to decode:</Header>
+							<TextAreaWithButton
+								btnLabel='encode'
+								value={text}
+								change={changeTextHandler}
+								clear={clearTextHandler}
+								primaryAction={primaryActionHandler}
+							/>
+						</Column>
+					</Card>
+					<Spacer />
+					<Card>
+						<Header size={6} b>
+							List of the original words that got encoded
+						</Header>
 
-			<Header size={3}>Output</Header>
-			<Header size={4}>Encoded text</Header>
-			<TextAreaReadOnly value={output} />
+						<List values={list} />
+					</Card>
+					<Spacer />
+					<Card sharp>
+						<Column>
+							<Header size={2} b>
+								Output
+							</Header>
+							<Header size={4}>Encoded text</Header>
+							<TextAreaReadOnly value={output} />
 
-			<Header size={4}>List of the original words that got encoded</Header>
-			<List values={list} />
-
-			<Header size={3}>Output</Header>
-			<Header size={4}>Dencoded text</Header>
-			<TextAreaReadOnly value={decodedOutput}>
-				<DecodeButton action={secondaryActionHandler} />
-			</TextAreaReadOnly>
+							<Header size={3}>Output</Header>
+							<Header size={4}>Dencoded text</Header>
+							<TextAreaReadOnly value={decodedOutput}>
+								<DecodeButton action={secondaryActionHandler} />
+							</TextAreaReadOnly>
+						</Column>
+					</Card>
+					<Spacer />
+				</Row>
+			</Column>
 		</Skin>
 	);
 };
 
 const DecodeButton = ({ action }) => {
-	return <button onClick={action}>Decode</button>;
+	return <Button onClick={action}>Decode</Button>;
 };
 
 export default App;

@@ -1,9 +1,13 @@
+import { TextArea } from '../styled-components/TextAreas';
+import { Column, Spacer } from '../styled-components/Aligners';
+
 const TextAreaReadOnly = ({ value, children }) => {
 	return (
-		<div>
-			<textarea readOnly value={value} />
+		<Column>
+			<TextArea readOnly value={value} />
+			{children && <Spacer />}
 			{children}
-		</div>
+		</Column>
 	);
 };
 
