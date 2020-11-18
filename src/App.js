@@ -36,8 +36,10 @@ const App = () => {
 		setText((prevText) => defaultValue);
 	}
 
-	function changeTextHandler(input) {
-		setText((prevText) => input);
+	function changeTextHandler(e) {
+		const val = e.target.value;
+		if (val[val.length - 1] === '\n') return;
+		setText((prevText) => val);
 	}
 
 	function primaryActionHandler() {
@@ -87,7 +89,9 @@ const App = () => {
 						</Column>
 					</Card>
 					<Spacer />
-					<Card>
+					{/* The card is built in such a way that simply adding the "sharp"
+					 property (making it "true") you get a version with sharp corners */}
+					<Card sharp>
 						<Header size={6} b>
 							List of the original words that got encoded
 						</Header>
@@ -95,7 +99,7 @@ const App = () => {
 						<List values={list} />
 					</Card>
 					<Spacer />
-					<Card sharp>
+					<Card>
 						<Column>
 							<Header size={2} b>
 								Output

@@ -17,11 +17,7 @@ const TextAreaWithButton = ({
 }) => {
 	return (
 		<Column spaceBetween>
-			<TextArea
-				rows={rows}
-				value={value}
-				onChange={(e) => change(e.target.value)}
-			/>
+			<TextArea rows={rows} value={value} onChange={(e) => change(e)} />
 			<Spacer />
 			<Row spaceEvenly>
 				<Button secondary onClick={clear}>

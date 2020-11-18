@@ -85,7 +85,7 @@ export default function tokenize(input) {
 	let word = '';
 	let isFirstWord = true;
 
-	// applyed only on the first token
+	// applied only on the first token
 	let preWhitespace = 0;
 
 	let whiteSpaceMet = 0;
