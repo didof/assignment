@@ -1,5 +1,5 @@
 import tokenize from '../../utils/tokenize';
-import pickRandomlyWithConstraints from '../../utils/pick_randomly_with_constraint';
+import getRandomIntInclusive from '../../utils/get_random_int_inclusive';
 
 /*
 [1]
@@ -119,8 +119,7 @@ export default class Decoder {
 			}
 
 			// [3.G]
-			const random =
-				references[pickRandomlyWithConstraints(0, references.length - 1)];
+			const random = references[getRandomIntInclusive(0, references.length - 1)];
 			token.decodedTo = random;
 		});
 	}
@@ -150,7 +149,7 @@ export default class Decoder {
 	}
 
 	refineReferenceByCharSearch(input, referenceList) {
-		let coreIndex = pickRandomlyWithConstraints(1, input.length - 2);
+		let coreIndex = getRandomIntInclusive(1, input.length - 2);
 		let randomCoreChar = input[coreIndex];
 		return referenceList.filter((r) => {
 			let charIsFound = false;
