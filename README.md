@@ -1,70 +1,81 @@
-# Getting Started with Create React App
+  # WeirdText
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Encoding and decoding tool.
 
-## Available Scripts
+WeirdText is a text encoder/decoder.
+Actually, its output is not a real "encryption" because humans could quite easily read it. Machines, instead, may find its output difficult to read without the list of original words.
 
-In the project directory, you can run:
+The purpose of WeirdText is not just having fun. There are real-world applications for it.
+E.g.: encryption is forbidden by law in your country, but you still don't want your email content to get automatically processed somehow.
 
-### `npm start`
+## Encoding
+For each word belonging to the original text, leave its first and last characters in their original position, but shuffle (permute) all the characters in the middle of the word.
+If possible, the resulting encoded word should not be the same as the original word. Whatever is not a word (whitespace, punctuation, etc.), should be left untouched.
+In order to make decoding possible to a machine, your encoder should also output a list of original words. Heads up: the list should only include words that got actually shuffled.
+For more details see the example below.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Decoding
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Before decoding text, first do a simple check if the text looks like encoded.
+If not, please raise some reasonable error to the user.
 
-### `npm test`
+Then, use the encoded text and the words list to decode the text.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Your decoded output should, as much as possible, be identical to the original text.
+In case of ambiguities (some encoded words could be decoded to two or more original words), decoding errors are acceptable.
 
-### `npm run build`
+## Example
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Original text
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+This is a long looong test sentence,
+with some big (biiiiig) words!
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Encoded text
 
-### `npm run eject`
+```
+Tihs is a lnog loonog tset sntceene,
+wtih smoe big (biiiiig) wdros!
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Encoded words list
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+long looong sentence some test This with words
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Decoded text
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
+This is a long looong test sentence,
+with some big (biiiiig) words!
+```
 
-## Learn More
+## Definition of done
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- The encoder implementation is necessary to us in order to consider the task done
+- The decoder implementation is a plus
+- Unit tests are a plus
+- Styling the tool (with CSS or styled-components) is a plus
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Implementation hints
 
-### Code Splitting
+- We suggest you to go with TDD
+- We suggest you to implement the encoder first. It's easier than the decoder.
+- You can split the tool into components/utils at your will. We actually suggest you to split it.
+- Using additional external dependencies would lower the evaluation score
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Score
 
-### Analyzing the Bundle Size
+The score will depend on the following evaluation criteria (alphabetically sorted):
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Code notes/comments
+- Code quality
+- Coding style
+- Decoding algorithm
+- Encoding algorithm
+- Knowledge of React
+- Tests
+- Tool architecture
