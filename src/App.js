@@ -117,6 +117,10 @@ const App = () => {
 	);
 };
 
+/*
+By taking advantage of the flexibility of TextAreaReadOnly it is possible to
+add any children within it.
+*/
 const DecodeButton = ({ action }) => {
 	return <Button onClick={action}>Decode</Button>;
 };
